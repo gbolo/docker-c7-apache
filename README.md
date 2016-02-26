@@ -1,3 +1,2 @@
-# docker-c7-apache
-# docker-c7-apache
-# docker-c7-apache
+# Docker image: CentOS 7 + Apache httpd 2.4
+
