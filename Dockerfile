@@ -9,15 +9,22 @@ EXPOSE 80 443
 # -----------------------------------------------------------------------------
 RUN rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7
 
+
 # -----------------------------------------------------------------------------
-# Install apache
+# Set apache UID/GID
 # -----------------------------------------------------------------------------
-RUN yum -y install httpd \
+RUN groupadd apache -g 2001 && \
+    useradd -r apache -u 2001 -g 2001
+
+# -----------------------------------------------------------------------------
+# Update & Install apache
+# -----------------------------------------------------------------------------
+RUN yum -y update && \
+    yum -y install httpd && \
     yum clean all
 
 # -----------------------------------------------------------------------------
 # run apache, make sure to rm pid before starting it
 # -----------------------------------------------------------------------------
-
 COPY httpd-foreground /usr/local/bin/
 CMD ["httpd-foreground"]
